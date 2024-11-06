@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mioto</title>
+  <link rel="stylesheet" href="/static/Home.css">
+  <link rel="stylesheet" href="/static/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div id="header"></div>
+<header class="header">
+  <div class="header-content">
+    <h1>Mioto - Cùng Bạn</h1>
+    <h1>Đến Mọi Hành Trình</h1>
+    <div style="width: 40%; height:2px ; background: lightgray; margin: 30px 255px; "></div>
+    <p style="color: white">Trải nghiệm sự khác biệt từ hơn <span class="highlight">8000</span> xe gia đình đời mới khắp Việt Nam</p>
+    <div class="service-options">
+      <button onclick="showSelfDriveSearch()" class="active"><i class="fas fa-car-alt"></i>Xe tự lái</button>
+      <button onclick="showDriverSearch()"><i class="fas fa-user-tie"></i>Xe có tài xế</button>
+      <button onclick="showlongTermSearch()"><i class="fas fa-calendar-alt"></i>Thuê xe dài hạn<sup>Mới</sup></button>
+    </div>
+    <div class="search-bar" id="self-drive-search">
+      <div class="location">
+        <label  style="margin-bottom: 18px"><i class="fas fa-map-marker-alt"></i>Địa điểm</label>
+        <a href="#" onclick="openForm('formSearch')" style="color: black">
+          <div class="custom-dropdown" onclick="toggleDropdown()" style="margin-bottom: 13px">
+            <div class="dropdown-selected" id="selected-location">Chọn vị trí</div>
+            <div class="dropdown-icon">▼</div>
+          </div>
+        </a>
+      </div>
+      <div class="time">
+        <label><i class="fas fa-calendar-alt"></i>Thời gian thuê</label>
+        <div class="choose-time">
+          <input type="date" placeholder="Thời gian nhận xe">
+          <div style="width: 30px; height:2px ; background: black; margin: 18px 15px 0 15px"></div>
+          <input type="date" placeholder="Thời gian trả xe">
+        </div>
+      </div>
+      <button class="search-btn">Tìm Xe</button>
+    </div>
+
+    <div class="search-bar" style="display: none;" id="driver-search">
+      <div class="location" style="border: none;">
+        <label style="font-weight: bold; color: black;">Lộ trình</label>
+        <div class="wd-option-form" style="width: 420px;">
+          <div class="custom-radio">
+            <input type="radio" id="city" name="trip_mode" checked="">
+            <label for="city">Nội thành</label>
+          </div>
+          <div class="custom-radio">
+            <input type="radio" id="province" name="trip_mode">
+            <label for="province">Liên tỉnh</label>
+          </div>
+          <div class="custom-radio">
+            <input type="radio" id="province_oneWay" name="trip_mode">
+            <label for="province_oneWay">Liên tỉnh (1 chiều)</label>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; width: 840px">
+        <div class="search-position">
+          <p style="text-align: left; margin-left: 10px; margin-bottom: 0; font-size: 14px; color: gray;">
+            Di chuyển nội thành hoặc lân cận, lộ trình tự do ?
+          </p>
+          <a href="#" onclick="openForm('formSearch')" style="text-decoration: none; color: gray;">
+            <div class="custom-dropdown" onclick="toggleDropdown()" style="margin-left: 10px; display: flex;align-items: center;">
+              <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: gray"></i>
+              <div class="dropdown-selected" id="selected">Tôi muốn đón tại...</div>
+              <div class="dropdown-icon">▼</div>
+            </div>
+          </a>
+        </div>
+        <div class="time">
+          <label style="font-weight: bold; color: black;">Thời gian thuê</label>
+          <div style="display: flex; width: 420px">
+            <div class="choose-time" style="display: flex; align-items: center;margin-left: 20px">
+              <i class="fas fa-calendar-alt" style="margin-bottom: 0"></i>
+              <input type="date" placeholder="Thời gian nhận xe"> -
+              <input type="date" placeholder="Thời gian trả xe">
+            </div>
+            <button class="search-btn" style="padding: 10px;margin-left: 5px">Tìm Xe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-bar" style="display: none;" id="long-term-search">
+      <div class="location" style="border: none">
+        <label><i class="fas fa-map-marker-alt"></i>Địa điểm áp dụng hiện tại</label>
+        <div class="custom-dropdown" onclick="toggleDropdown()">
+          <div class="dropdown-selected" id="selected-long-term" style="margin-left: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Hà Nội</div>
+        </div>
+      </div>
+      <button class="search-btn" style="max-width: 100px;margin-left: 18.75rem">Tìm Xe</button>
+    </div>
+  </div>
+</header>
+
+
+<section class="slider">
+  <h1>Chương Trình Khuyến Mãi</h1>
+  <p>Nhận nhiều ưu đãi hấp dẫn từ Mioto</p>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form1')">
+            <img src="https://n1-cstg.mioto.vn/g/2024/09/16/09/MH56HJ7U.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form2')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/09/22/08/LNTQYEM6.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form3')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/09/01/05/D7HKIAH9.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form4')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/08/30/22/B2188JHR.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form5')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/08/30/22/ADNXSY.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form6')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/08/30/22/2NX92ED.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form7')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/09/03/10/DA92W7B2.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form8')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/08/30/22/LS6SERA.jpg">
+          </a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="fix-img">
+          <a href="#" onclick="openForm('form9')">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/09/21/08/6NH5V58C.jpg">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev prev-ads"></div>
+    <div class="swiper-button-next next-ads"></div>
+  </div>
+</section>
+<section class="cars">
+  <h1 style="font-weight: bold; padding-top: 30px">Xe Dành Cho Bạn</h1>
+  <div class="car-grid">
+    <div class="row">
+      <div class="col-4">
+        <div class="cars-list">
+          <div class="car-main">
+            <div class="car-img">
+              <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2022/p/g/2023/06/19/16/KkI-c4L9R5y81fXvj-p-AQ.jpg">
+            </div>
+            <div class="car-item">
+              <div class="car-type">
+                <p>Số tự động</p>
+                <p>Giao xe tận nơi</p>
+              </div>
+              <p class="name-car">MISUBISHI XPANDER 2022</p>
+              <p class="address-car"><i class="fas fa-map-marker-alt"></i> Quận 3, TP. Hồ Chí Minh</p>
+            </div>
+            <div class="information">
+              <div class="number-trip">
+                <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                <i class="fas fa-suitcase" style="color: green;"></i> 22 chuyến
+              </div>
+              <div class="wrap-price">
+                         <span class="price-origin">
+                            <span>850k</span>
+                         </span>
+                <span class="price-special ">
+                             <span>730k</span>/ngày
+                         </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="cars-list">
+          <div class="car-main">
+            <div class="car-img">
+              <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/toyota_innova_2016/p/g/2024/06/26/11/Q7SfQiVa25ZlKCbJbH91TA.jpg">
+            </div>
+            <div class="car-item">
+              <div class="car-type">
+                <p>Số tự động</p>
+                <p>Giao xe tận nơi</p>
+              </div>
+              <p class="name-car">MISUBISHI XPANDER 2022</p>
+              <p class="address-car"><i class="fas fa-map-marker-alt"></i> Quận 3, TP. Hồ Chí Minh</p>
+            </div>
+            <div class="information">
+              <div class="number-trip">
+                <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                <i class="fas fa-suitcase" style="color: green;"></i> 22 chuyến
+              </div>
+              <div class="wrap-price">
+                         <span class="price-origin">
+                            <span>850k</span>
+                         </span>
+                <span class="price-special ">
+                             <span>730k</span>/ngày
+                         </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="cars-list">
+          <div class="car-main">
+            <div class="car-img">
+              <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2020/p/g/2023/10/07/07/AiKwHW2yB2PkBZ4xkdz7JA.jpg">
+            </div>
+            <div class="car-item">
+              <div class="car-type">
+                <p>Số sàn</p>
+              </div>
+              <p class="name-car">TOYOTA INNOVA 2016</p>
+              <p class="address-car"><i class="fas fa-map-marker-alt"></i> Quận 3, TP. Hồ Chí Minh</p>
+            </div>
+            <div class="information">
+              <div class="number-trip">
+                <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                <i class="fas fa-suitcase" style="color: green;"></i> 22 chuyến
+              </div>
+              <div class="wrap-price">
+                         <span class="price-origin">
+                            <span>850k</span>
+                         </span>
+                <span class="price-special ">
+                             <span>730k</span>/ngày
+                         </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="cars-list">
+          <div class="car-main">
+            <div class="car-img">
+              <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2020/p/g/2023/10/07/07/AiKwHW2yB2PkBZ4xkdz7JA.jpg">
+            </div>
+            <div class="car-item">
+              <div class="car-type">
+                <p>Số sàn</p>
+              </div>
+              <p class="name-car">TOYOTA INNOVA 2016</p>
+              <p class="address-car"><i class="fas fa-map-marker-alt"></i> Quận 3, TP. Hồ Chí Minh</p>
+            </div>
+            <div class="information">
+              <div class="number-trip">
+                <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                <i class="fas fa-suitcase" style="color: green;"></i> 22 chuyến
+              </div>
+              <div class="wrap-price">
+                         <span class="price-origin">
+                            <span>850k</span>
+                         </span>
+                <span class="price-special ">
+                             <span>730k</span>/ngày
+                         </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="places">
+  <h1 style="font-weight: bold; margin-bottom: 60px">Địa Điểm Nổi Bật</h1>
+  <div class="swiper-places">
+    <div class="swiper-main">
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/1/cho_thue_xe_tu_lai_tphcm/hcm/p/m/cities_v2/HoChiMinh_v2.jpg" alt="Cho thuê xe tự lái TP. Hồ Chí Minh">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/1/cho_thue_xe_tu_lai_tphcm/hcm/p/m/cities_v2/HaNoi_v2.jpg" alt="Cho thuê xe tự lái Hà Nội">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/1/cho_thue_xe_tu_lai_tphcm/hcm/p/m/cities_v2/DaNang_v2.jpg" alt="Cho thuê xe tự lái Đà Nẵng">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/1/cho_thue_xe_tu_lai_tphcm/hcm/p/m/cities_v2/BinhDuong_v2.jpg" alt="Cho thuê xe tự lái Bình Dương">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/01/19/14/7XSHFW47.jpg" alt="Cho thuê xe tự lái Biên Hoà">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/01/19/14/7XSHFW47.jpg" alt="Cho thuê xe tự lái Biên Hoà">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/01/19/14/7XSHFW47.jpg" alt="Cho thuê xe tự lái Biên Hoà">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+      <div class="swiper-items">
+        <div class="location-img">
+          <a href="#">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/01/19/14/7XSHFW47.jpg" alt="Cho thuê xe tự lái Biên Hoà">
+          </a>
+        </div>
+        <div class="number-city">
+          <p>TP.Hồ Chí Minh</p>
+          <p>4500+ xe</p>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev prev-ads"></div>
+    <div class="swiper-button-next next-ads"></div>
+  </div>
+  <div class="car-pickup-location">
+    <div class="location-title" style="display: block">
+      <h4 style="font-size: 25px; font-weight: bold; margin-top: 20px">Giao xe tại sân bay</h4>
+      <div style="display: flex;gap: 30px; margin-left: 20px; margin-top: 35px">
+        <div class="swiper-button-prev-1 airports-prev"></div>
+        <div class="swiper-button-next-1 airports-next"></div>
+      </div>
+    </div>
+    <div class="swiper location-airport">
+      <div class="swiper-wrapper" style="height: 180px;">
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/HU5WFGGX.jpg" alt="Cho thuê xe tự lái Nội Bài">
+            <p>Nội Bài<br>200+ xe</p>
+          </div>
+        </div>
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/ND4NE32Q.jpg" alt="Cho thuê xe tự lái Đà Nẵng">
+            <p>Đà Nẵng<br>100+ xe</p>
+          </div>
+        </div>
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/I2C3CQ64.jpg" alt="Cho thuê xe tự lái Cam Ranh">
+            <p>Cam Ranh<br>20+ xe</p>
+          </div>
+        </div>
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/IH8BGVXP.jpg" alt="Cho thuê xe tự lái Phú Quốc">
+            <p>Phú Quốc<br>70+ xe</p>
+          </div>
+        </div>
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/IH8BGVXP.jpg" alt="Cho thuê xe tự lái Phú Quốc">
+            <p>Phú Quốc<br>70+ xe</p>
+          </div>
+        </div>
+        <div class="swiper-slide airport-list">
+          <div class="airport-item">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2022/04/14/17/IH8BGVXP.jpg" alt="Cho thuê xe tự lái Phú Quốc">
+            <p>Phú Quốc<br>70+ xe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="benefits">
+  <h1 style="font-weight: bold">Ưu Điểm Của Mioto</h1>
+  <p>Những tính năng giúp bạn dễ dàng hơn khi thuê xe trên Mioto.</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" style="cursor: pointer">
+        <a href="#" onclick="openForm('form10')" style="color: black;text-decoration: none;">
+          <img src="https://www.mioto.vn/static/media/thue_xe_co_tai_xe.a6f7dc54.svg">
+          <h3>Lái xe an toàn cùng Mioto</h3>
+          <p>Chuyến đi trên Mioto được bảo vệ với Gói bảo hiểm thuê xe tự lái từ MIC & VNI.
+            Khách thuê sẽ chỉ bồi thường tối đa 2,000,000VNĐ trong trường hợp có sự cố ngoài ý muốn.
+          </p>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <img src="https://www.mioto.vn/static/media/dich_vu_thue_xe_tu_lai_hanoi.f177339e.svg">
+        <h3>An tâm đặt xe</h3>
+        <p>Không tính phí huỷ chuyến trong vòng 1h sau khi thanh toán giữ chỗ.
+          Hoàn tiền giữ chỗ và bồi thường 100% nếu chủ xe huỷ chuyến trong vòng 7 ngày trước chuyến đi.</p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://www.mioto.vn/static/media/cho_thue_xe_tu_lai_tphcm.1e7cb1c7.svg">
+        <h3>Thủ tục đơn giản</h3>
+        <p>Chỉ cần có CCCD gắn chip (Hoặc Passport) & Giấy phép lái xe là bạn đã đủ điều kiện thuê xe trên Mioto.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://www.mioto.vn/static/media/cho_thue_xe_tu_lai_hanoi.735438af.svg">
+        <h3>Thanh toán dễ dàng</h3>
+        <p>Đa dạng hình thức thanh toán: ATM, thẻ Visa & Ví điện tử (Momo, VnPay, ZaloPay).</p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://www.mioto.vn/static/media/thue_xe_tu_lai_gia_re_hcm.ffd1319e.svg">
+        <h3>Giao xe tận nơi</h3>
+        <p>Bạn có thể lựa chọn giao xe tận nhà/sân bay... Phí tiết kiệm chỉ từ 15k/km.</p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://www.mioto.vn/static/media/thue_xe_tu_lai_gia_re_hanoi.4035317e.svg">
+        <h3>Dòng xe đa dạng</h3>
+        <p>Hơn 100 dòng xe cho bạn tuỳ ý lựa chọn: Mini, Sedan, CUV, SUV, MPV, Bán tải.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="insurance">
+  <h1>Hành Trình Của Bạn Luôn Được Bảo Vệ</h1>
+  <div class="insurance-logos">
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" onclick="openForm('form10')" style="color: black;text-decoration: none;">
+          <img src="https://cdn1.vieclam24h.vn/images/default/2024/04/24/348684430_949100756333367_8895376042472708169_n_171392818889.jpg">
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="#" onclick="openForm('form10')" style="color: black;text-decoration: none;">
+          <img src="https://baohiemmic.vn/wp-content/uploads/2024/09/logo-mic-2024.jpg">
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="#" onclick="openForm('form10')" style="color: black;text-decoration: none;">
+          <img src="https://ibaohiem.vn/wp-content/uploads/2022/10/Bao-hiem-hang-khong-VNI.png">
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="#" onclick="openForm('form10')" style="color: black;text-decoration: none;">
+          <img src="https://pvisaigon.net/wp-content/uploads/2023/07/logo-pvi.png">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="cta">
+  <h1 style="font-weight: bold">Dịch Vụ Của Mioto</h1>
+  <div class="service-container">
+    <div class="service-item-left">
+      <div class="service-item">
+        <img class="image1" src="https://media.istockphoto.com/id/1644775768/vi/anh/m%E1%BB%99t-doanh-nh%C3%A2n-kh%C3%B4ng-th%E1%BB%83-nh%E1%BA%ADn-ra-l%C3%A1i-xe-c%E1%BB%A7a-m%C3%ACnh.jpg?s=1024x1024&w=is&k=20&c=6B8E8784R0vMZ5klTYvriSXUummZvLchZ1v-PmTTHdE=" alt="gia_thue_xe_tu_lai_4cho_tai_hanoi">
+        <div class="content">
+          <h3>Xe đã sẵn sàng.<br>Bắt đầu hành trình ngay!</h3>
+          <p>Tự tay cầm lái chiếc xe bạn yêu thích <br> cho hành trình thêm hứng khởi.</p>
+          <a class="btn btn-primary">Thuê xe tự lái</a>
+        </div>
+      </div>
+    </div>
+    <div class="service-item-right">
+      <div class="service-item">
+        <img class="image2" src="https://media.istockphoto.com/id/1470035625/vi/anh/t%C3%A0i-x%E1%BA%BF-v%E1%BA%ADn-chuy%E1%BB%83n-m%E1%BB%99t-ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-kinh-doanh-tr%C3%AAn-m%E1%BB%99t-chi%E1%BA%BFc-taxi-c%C3%B3-ngu%E1%BB%93n-l%E1%BB%B1c-c%E1%BB%99ng-%C4%91%E1%BB%93ng.jpg?s=612x612&w=0&k=20&c=dHkGsJP85BZFyZG6hq5lcY4_dMK30j1UZvoTH-NkGAI=" alt="thue_xe_oto_tu_lai_va_co_tai">
+        <div class="content">
+          <h3>Tài xế của bạn đã đến!</h3>
+          <p>Chuyến đi thêm thú vị <br> cùng các bác tài 5* trên Mioto.</p>
+          <a class="btn btn-primary ">Thuê xe có tài xế</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guidance">
+  <h1 style="font-weight: bold">Hướng Dẫn Thuê Xe</h1>
+  <p style="font-size: 1.5rem; padding: 10px 300px 30px 300px;text-align: center;">Chỉ với 4 bước đơn giản để trải nghiệm thuê xe Mioto một cách nhanh chóng</p>
+  <div class="row" style="padding-right: 30px; padding-left: 30px">
+    <div class="col-md-3 new">
+      <img src="https://www.mioto.vn/static/media/cho_thue_xe_co_taigia_re_tphcm.12455eba.svg">
+      <div class="text-items">
+        <h5 class="text-number">01</h5>
+        <h5>Đặt xe trên app/web Mioto</h5>
+      </div>
+    </div>
+    <div class="col-md-3 new">
+      <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_tphcm.9455973a.svg">
+      <div class="text-items">
+        <h5 class="text-number">02</h5>
+        <h5>Nhận xe</h5>
+      </div>
+    </div>
+    <div class="col-md-3 new">
+      <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_hanoi.0834bed8.svg">
+      <div class="text-items">
+        <h5 class="text-number">03</h5>
+        <h5>Bắt đầu hành trình</h5>
+      </div>
+    </div>
+    <div class="col-md-3 new">
+      <img src="https://www.mioto.vn/static/media/gia_thue_xe_4cho_tai_tphcm.9dcd3930.svg">
+      <div class="text-items">
+        <h5 class="text-number">04</h5>
+        <h5>Trả xe & kết thúc
+          chuyến đi</h5>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="more-info">
+  <div class="info-item" style="background: #effaf3;margin-bottom: 80px">
+    <div class="info-item-image">
+      <img src="https://www.mioto.vn/static/media/thue_xe_co_tai_xe_tphcm_gia_re.465b3169.png">
+    </div>
+    <div class="info-item-text">
+      <h3>Bạn muốn biết thêm về Mioto?</h3>
+      <p>Mioto kết nối khách hàng có nhu cầu thuê xe với hàng ngàn chủ xe ô tô ở TPHCM,
+        Hà Nội & các tỉnh thành khác.
+        Mioto hướng đến việc xây dựng cộng đồng người dùng ô tô văn minh & uy tín tại Việt Nam.
+      </p>
+      <button class="form-button">Tìm Hiểu thêm</button>
+
+    </div>
+  </div>
+  <div class="info-item" style="background: #eef7ff; margin-bottom: 80px">
+    <div class="info-item-text">
+      <h3>Bạn muốn cho thuê xe?</h3>
+      <p>Hơn 10,000 chủ xe đang cho thuê hiệu quả trên Mioto
+        Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hàng tháng.
+      </p>
+      <div class="button-items" style="display: flex; gap: 30px">
+        <button>Tìm hiểu ngay</button>
+        <button>Đăng ký xe</button>
+      </div>
+
+    </div>
+    <div class="info-item-image">
+      <img src="https://www.mioto.vn/static/media/thue_xe_oto_tu_lai_di_du_lich_gia_re.fde3ac82.png">
+    </div>
+  </div>
+
+  <div class="info-item" style="background: lightgray">
+    <div class="info-item-text">
+      <h3 style="margin-top: 30px">Trải nghiệm trọn vẹn
+        cùng ứng dụng Mioto</h3>
+      <div class="button-items" style="display: flex; gap: 30px">
+        <a href="#" class="download-button app-store"></a>
+        <a href="#" class="download-button google-play"></a>
+      </div>
+    </div>
+    <div class="info-item-image">
+      <img src="https://www.mioto.vn/static/media/dich_vu_cho_thue_oto_tu_lai.38588237.png">
+    </div>
+  </div>
+</section>
+
+<section class="blog-section">
+  <div class="Blog-container">
+    <h2 style="font-weight: bold; font-size: 40px; text-align: center; margin-bottom: 60px">MIOTO Blog</h2>
+    <div class="blog-container" style="display: flex">
+      <div class="blog-wrap-2-item">
+        <a class="blog-item" href="">
+          <div class="blog-item-img">
+            <img loading="lazy" src="https://n1-tstg.mioto.vn/g/2024/09/05/09/TpnbcLVYsJcFzujfl-1ZqQ.jpg" alt="Mioto - Thuê xe tự lái">
+            <div class="blog-item-content">
+              <p class="time-text">05-10-2024</p>
+              <p class="name-text">Kinh nghiệm thuê xe tự lái tiết kiệm chi phí</p>
+            </div>
+          </div>
+        </a>
+        <a class="blog-item" href="">
+          <div class="blog-item-img">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/07/13/17/H6GH3FSR.jpg" alt="Mioto - Thuê xe tự lái">
+            <div class="blog-item-content">
+              <p class="time-text">13-08-2024</p>
+              <p class="name-text">Thuê xe tự lái: Giải pháp hoàn hảo cho chuyến du lịch dịp lễ 2/9 ý nghĩa bên những người thân yêu</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="blog-wrap">
+        <a class="blog-item" href="" style="display: block;">
+          <div class="blog-item-img">
+            <img loading="lazy" src="https://n1-cstg.mioto.vn/g/2024/06/23/16/7EPF9XJ9.jpg" alt="Mioto - Thuê xe tự lái">
+            <div class="blog-item-content">
+              <p class="time-text">23-07-2024</p>
+              <p class="name-text">Thuê xe ô tô theo tháng: Giải pháp hoàn hảo cho nhu cầu di chuyển dài hạn</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="overlay" id="overlay" onclick="closeForm()"></div>
+
+<div class="form-popup" id="form1">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/09/16/09/MH56HJ7U.jpg">
+      <p style="margin-top: 40px"> GIỚI THIỆU TÍNH NĂNG MỚI - THUÊ XE TỰ LÁI THEO</p>
+      <p style="margin: 15px 0">GIỜ NHẬP NGAY MÃ 48H ĐỂ TRẢI NGHIỆM</p>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;"></div>
+      <div class="content-main">
+        <p>Kính gửi <span>Quý khách hàng & Quý đối tác,</span></p>
+        <p>Nhằm tiếp tục nâng cao trải nghiệm thuê xe của khách hàng,
+          Mioto xin giới thiệu về việc ra mắt tính năng mới - <span>Thuê xe theo giờ</span> - áp dụng cho các <span>chuyến đi ngắn <=8 giờ</span>,
+          với mức giá tiết kiệm từ 25-40% so với giá thuê ngày. Chi tiết như sau:
+        </p>
+        <table>
+          <tr>
+            <th>Thời gian thuê xe</th>
+            <th>Giá thuê</th>
+          </tr>
+          <tr>
+            <td>≤ 4h</td>
+            <td>~ 60% giá 1 ngày</td>
+          </tr>
+          <tr>
+            <td>≤ 8h</td>
+            <td>~ 75% giá 1 ngày</td>
+          </tr>
+          <tr>
+            <td>> 8-24h</td>
+            <td>Tính trọn 1 ngày</td>
+          </tr>
+        </table>
+        <p>Để lựa chọn thuê xe theo giờ, tại mục <span>Thời gian thuê</span>,
+          bạn vui lòng chọn thẻ <span>Thuê theo giờ</span>,
+          chọn giờ nhận xe và thời gian bạn muốn thuê.
+        </p>
+        <img src="https://n1-cstg.mioto.vn/g/2024/09/04/10/D4XSVPNB.jpg">
+        <div class="content-special">
+          <div class="content-item">
+            <p>Các xe có hỗ trợ <span>thuê xe</span> theo giờ sẽ có gắn thẻ Thuê giờ tại ảnh đại diện của xe.</p>
+            <img src="https://n1-cstg.mioto.vn/g/2024/09/04/10/D66NBUZF.jpg">
+            <p>Hoặc để lọc các xe cho thuê theo giờ,
+              bạn có thể bấm vào thẻ <span>Thuê giờ</span>
+              trong danh sách các thẻ tìm kiếm nhanh nằm ở phần đầu trang tìm kiếm.
+            </p>
+            <img src="https://n1-cstg.mioto.vn/g/2024/09/04/10/DGDVIVFY.jpg">
+            <p style="font-size: 15px; color: lightslategray">***Cập nhật phiên bản mới nhất để trải nghiệm tính năng mới:
+              Đối với App store phiên bản 3.7.4 & 5.3.6 trên Google Play.
+            </p>
+          </div>
+        </div>
+        <p style="text-indent: 30px">Ngoài ra, Mioto gửi tặng bạn mã ưu đãi <span>48H</span>-
+          giảm <span>10%</span> (tối đa 100k) khi đặt chuyến 4/8h,
+          áp dụng đến hết ngày 31/10/2024.
+        </p>
+        <p>Nếu cần hỗ trợ hoặc cần thêm thông tin,
+          bạn có thể liên hệ bộ phận CSKH của Mioto tại Hotline <span>19009217</span> hoặc nhắn tin đến <span>Mioto Fanpage</span>.
+          Rất cám ơn sự ủng hộ nhiệt thành của Quý khách hàng & Quý đối tác trong suốt thời gian vừa qua.
+          Hy vọng bạn luôn có những trải nghiệm đáng nhớ cùng Mioto.
+        </p>
+        <p style="margin-bottom: 0">Trân trọng,</p>
+        <span style="display: block;text-align: left">TEAM 6</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form2">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/09/22/08/L6A93SKI.jpg">
+      <p style="margin: 30px 0 15px 0;font-size: 18px"> 📲 ĐẶT XE VI VU NGAY HÔM NAY ĐỂ NHẬN ĐƯỢC ƯU ĐÃI 120K</p>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p style="text-indent: 20px">🎃 Halloween này, thay vì chỉ ở nhà -
+          Hãy tự tay lái xe khám phá những điểm đến huyền bí!
+        </p>
+        <p>Đừng chỉ tham gia các bữa tiệc hóa trang, hay ngồi nhà đợi lễ,
+          bạn có thể đi đến những địa điểm thú vị,
+          trải nghiệm một đêm Halloween độc đáo và đầy bất ngờ!
+        </p>
+        <p>
+          Với Mioto, bạn dễ dàng thuê xe tự lái, thoải mái lựa chọn xe yêu thích để tự do khám phá cùng ưu đãi 🎁 120k khi nhập mã MI310. Ưu đãi áp dụng đến hết ngày 31/10/2024.
+        </p>
+        <p>🌟 Ưu đãi đang có, xe đã sẵn sàng, lên kế hoạch đi ngay!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form3">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/09/01/05/D8C4U9PV.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center"> 🚘 Đặt xe để nhận ưu đãi 8% và bắt đầu hành trình ngay!</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>Bạn đang cần phương tiện di chuyển linh hoạt cho lịch trình cá nhân? 🚙
+        </p>
+        <p>✅ Chỉ cần vài thao tác đơn giản trên Mioto đã có ngay chiếc xe ưng ý.
+          Tự do di chuyển trong công việc, hay du lịch muôn nơi theo cách riêng của bạn.
+        </p>
+        <p>
+          🔥 Trải nghiệm chuyến đi thoải mái bằng xe tự lái, nhập mã LEHOI - giảm ngay 8% (tối đa 80k), áp dụng đến hết ngày 31/10/2024.
+        </p>
+        <p>📱 Đặt xe hôm nay để nhận ưu đãi, sẵn sàng cho mọi chuyến đi!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form4">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/08/30/22/BFV7E2PT.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center"> 🚘🎁 Đặt xe ngay để nhận ưu đãi 120k</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>🔎 Thuê xe nào cho gia đình vi vu thoải mái suốt đường dài?
+        </p>
+        <p>🚘 Chọn ngay xe 7 chỗ với thiết kế rộng rãi, gia đình đông người đi đâu cũng tiện. Động cơ êm ái, thoải mái khám phá muôn nơi. Xe to cốp rộng, chẳng ngại hành lý cồng kềnh.
+        </p>
+        <p>
+          💥Mioto giảm ngay 120k cho lần đầu thuê xe 7 chỗ, áp dụng đến hết ngày 31/10/2024.
+        </p>
+        <p>📲 Nhà bao nhiêu người, Mioto cũng chiều đúng ý, thuê xe ngay!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form5">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/08/30/22/1TB1RCB.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center">💥 Giảm ngay 100k cho lần đầu thuê xe mini</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>🔎 Bạn đang tìm một chiếc xe để đi công tác ? Hay đơn giản cần một chiếc xe để vi vu nội thành?
+        </p>
+        <p>Ghé Mioto chọn ngay dòng xe mini phù hợp để trải nghiệm chân thật nhất.
+        </p>
+        <p>
+          ✔️ Dòng xe gọn nhẹ nhưng động cơ không hề nhẹ.
+        </p>
+        <p>
+          ✔️ Vận hành dễ dàng, linh hoạt khi đi phố.
+        </p>
+        <p>✔️ Tiết kiệm nhiên liệu cho bạn thoải mái vi vu cả ngày.</p>
+        <p>📲 Mở Mioto để nhận ngay ưu đãi 100k khi lần đầu thuê xe mini, áp dụng đến hết ngày 31/10/2024.</p>
+        <p>🌟 Thuê mini di chuyển ưng ý, chuyến đi đúng ý!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form6">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/08/30/22/3IU3X6F.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center">💥 Giảm ngay 120k khi trải nghiệm xe điện tại Mioto</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>🚙 Xe điện là lựa chọn hoàn hảo cho tín đồ đam mê công nghệ và yêu môi trường xanh.
+        </p>
+        <p>🔋 Chỉ với một lần sạc cho quãng đường 400km giúp bạn di chuyển dễ dàng khắp các ngõ phố.
+        </p>
+        <p>🌟 Mở Mioto để trải nghiệm xe điện, nhận ngay ưu đãi giảm 120k, áp dụng đến hết ngày 31/10/2024.</p>
+        <p>📲 Xe điện hiện đại, không ngại đường xa, đặt xe ngay!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form7">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/09/03/10/CXZGJTR1.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center">💥🎁 Chi phí tiết kiệm chỉ từ 7,4 triệu đồng/ tháng</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p style="margin-bottom: 50px">🚗 Bạn đang lên kế hoạch mua một chiếc xe mới nhưng cần thời gian để trải nghiệm xe? Bạn đang có một dự án công việc ngắn hạn tại TP HCM, cần một phương tiện để di chuyển linh hoạt cho công việc của mình? Hoặc bạn chuyển đến TP HCM sinh sống thời gian ngắn và cần phương tiện đi lại hằng ngày?
+        </p>
+        <p>👉 Mioto cung cấp dịch vụ cho thuê xe tự lái dài hạn tại Hồ Chí Minh, giải pháp hoàn hảo cho vấn đề này!
+        </p>
+        <p>✅ Chi phí tiết kiệm: Với Mioto, bạn chỉ cần trả một khoản phí hợp lý mỗi tháng và tiết kiệm được 5-10%/ tháng. Các gói thuê 1 tháng, 3 tháng, 6 tháng, 12 tháng và dài hạn hơn nữa.</p>
+        <p>✅ Miễn phí bảo dưỡng định kỳ, tại nhà: Không phải lo lắng về việc bảo dưỡng xe. Mioto sẽ bảo dưỡng định kỳ và tại nhà.</p>
+        <p>✅ Giao xe tận nơi: Không cần phải đến cửa hàng, Mioto sẽ giao xe tận nhà cho bạn một cách nhanh chóng và thuận tiện.</p>
+        <p>✅ Xe gia đình, đời mới: Với Mioto, bạn sẽ được trải nghiệm dịch vụ cho thuê xe với các dòng xe gia đình hiện đại và đời mới.</p>
+        <p>✅ Bảo hiểm thân vỏ: Tất cả các xe cho thuê đều đảm bảo có bảo hiểm thân vỏ đầy đủ, giúp bạn an tâm trong chuyến đi.</p>
+        <button class="form-button">ĐĂNG KÍ THUÊ XE DÀI HẠN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form8">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/08/30/22/42RMZGU.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center">🌟 Nhập mã MI10 - ưu đãi 10% khi thuê xe có tài</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>🌦 Dù nắng dù mưa vẫn có Mioto đón đưa. Với dịch vụ thuê xe có tài tiện lợi, nhanh chóng. Bạn chỉ cần mở app đặt xe, có Mioto đến đón ngay 🚗
+        </p>
+        <p>💥 Nhập mã MI10 - giảm ngay 10% (tối đa 100k) chi phí khi thuê xe có tài tại Mioto. Ưu đãi được áp dụng đến hết 31/10/2024.
+        </p>
+        <p>📲 Mở app đặt xe bác tài đến đón ngay!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form9">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-intro">
+      <img src="https://n1-cstg.mioto.vn/g/2024/09/28/08/KXLLZZXT.jpg">
+      <h2 style="margin: 30px 0 15px 0; text-align: center">🚘 Nội thất rộng rãi, hành trình thoải mái</h2>
+      <div style="background: #00c16e;
+                         width: 110px;
+                         height: 2px;
+                         display: block;
+                         margin-left: auto;
+                         margin-right: auto;
+                         margin-bottom: 20px;">
+      </div>
+      <div class="content-main">
+        <p>🚕 Với thiết kế hiện đại, sở hữu một vẻ ngoài mạnh mẽ. Nội thất Xpander được thiết kế tinh tế với không gian rộng rãi, là lựa chọn phù hợp cho gia đình hay hội bạn thân trong những chuyến đi du lịch dài ngày. Các hàng ghế linh hoạt có thể điều chỉnh để mở rộng khoang hành lý, giúp bạn mang theo những thứ cần thiết cho chuyến đi.
+        </p>
+        <p>🎊 Tiết kiệm 10% khi thuê xe Mitsubishi Xpander cùng mã XPANDER tại Mioto. Ưu đãi áp dụng đến ngày 03/11/2024.
+        </p>
+        <p>📲 Mở app đặt xe, nhận ngay ưu đãi!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="form10">
+  <div>
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <div class="content-special-2" style="background: #5fcf86;border-radius: 20px">
+      <div style="color: white; padding: 20px">
+        <h4>Bảo hiểm thuê xe tự lái</h4>
+        <p>Với nhiều năm kinh nghiệm trong lĩnh vực cho thuê xe, Mioto hiểu rằng các rủi ro đâm đụng, cháy nổ,
+          thủy kích gây tổn thất lớn (vượt quá khả năng chi trả) luôn tiềm ẩn trong thời gian thuê xe.
+        </p>
+        <p>❌ Trong khi đó, hầu hết các rủi ro phát sinh trong quá trình thuê xe tự lái sẽ
+          không thuộc phạm vi của Bảo hiểm thân vỏ xe theo năm (hay còn gọi là Bảo hiểm 2 chiều).
+        </p>
+        <p>✅ Xuất phát từ nhu cầu thiết yếu của khách hàng,
+          Mioto kết hợp với các đối tác bảo hiểm hàng đầu Việt Nam cùng mang đến sản phẩm Bảo hiểm
+          thuê xe tự lái mức phí thực sự tiết kiệm và số tiền bảo hiểm lớn (đến 100% giá trị xe)
+          sẽ giúp bạn không còn lo lắng khi thuê xe & an tâm tận hưởng hành trình của mình.
+        </p>
+      </div>
+    </div>
+    <div class="content-items">
+      <h5 style="margin: 20px 0;font-weight: bold">I. Nội dung sản phẩm Bảo hiểm thuê xe</h5>
+      <p>Trong thời gian thuê xe, nếu xảy ra các sự cố va chạm ngoài ý muốn dẫn đến tổn thất về xe,
+        khách thuê sẽ chỉ bồi thường số tiền tối đa 2,000,000đ để sửa chữa xe (mức khấu trừ),
+        nhà bảo hiểm sẽ hỗ trợ cho các chi phí phát sinh vượt mức khấu trừ.
+      </p>
+      <table class="table-content">
+
+        <tr>
+          <th>Thiệt hại xe</th>
+
+          <th>Khách thành toán</th>
+
+          <th>Bảo hiểm thành toán</th>
+        </tr>
+        <tr>
+          <td>< = 2 triệu</td>
+
+          <td>< = 2 triệu</td>
+
+          <td>0 triệu</td>
+        </tr>
+
+        <tr>
+          <td>>> 2 triệu</td>
+
+          <td>2 triệu</td>
+
+          <td>298 triệu</td>
+        </tr>
+
+        <tr>
+          <td colspan="3">Vì dụ minh họa: Xe có sự cố tổn thất 300,000,000đ</td>
+        </tr>
+
+      </table>
+      <p>• Lưu ý: Khách hàng cần thực hiện đầy đủ <span>Quy trình xử lý</span> khi xảy ra sự cố (<span>Mục III</span> bên dưới).</p>
+    </div>
+    <div class="content-items">
+      <h5 style="margin: 20px 0;font-weight: bold">II. Điều khoản Bảo hiểm</h5>
+      <ul>
+        <li>Bảo hiểm vật chất xe: đâm va , hỏa hoạn, cháy nổ</li>
+        <li>Miễn phí cứu hộ tối đa 70km/vụ</li>
+        <li>Bảo hiểm thủy kích (khấu trừ 20% số tiền bảo hiểm, tối thiểu 3 triệu đồng)</li>
+        <li>Mức khấu trừ: 2,000,000đ/vụ</li>
+      </ul>
+      <div class="items-special" style="color: #767676; font-size: .875rem">
+        <p>• Giải thích <span>Mức khấu trừ</span>: mọi sự cố ngoài ý muốn trong phạm vi bảo hiểm,
+          số tiền tối đa khách thuê thanh toán là <a href="#" style="font-style: normal; font-weight: normal">2 triệu đồng</a>, chưa bao gồm:
+        </p>
+        <p>- Giảm trừ bồi thường/chế tài theo Quy tắc của Nhà bảo hiểm,</p>
+        <p>- Thiệt hại do xe không cho thuê được trong thời gian sửa chữa nếu có,</p>
+        <p>- Các lí do chủ quan khác nằm ngoài phạm vi bảo hiểm.</p>
+        <p>Quy tắc bảo hiểm MIC: Xem thêm tại <a href="#">liên kết</a></p>
+        <p>Quy tắc bảo hiểm VNI: Xem thêm tại <a href="#">liên kết</a></p>
+      </div>
+    </div>
+    <div class="content-items">
+      <h5 style="margin: 20px 0;font-weight: bold">III. Quy trình xử lí nếu xảy ra sự cố</h5>
+      <ol>
+        <li>Khách thuê <span>giữ nguyên hiện trường & chụp ảnh xe đang bị sự cố.</span></li>
+        <li>Khách thuê gọi đến trung tâm bồi thường của nhà bảo hiểm
+          <span>tại thời điểm xảy ra sự cố (MIC - 1900 55 88 91), (VNI - 1900 96 96 90)</span>,
+          đọc số hợp đồng bảo hiểm và làm theo hướng dẫn tổng đài.
+        </li>
+        <li>Giám định viên bảo hiểm liên hệ khách thuê để hướng dẫn xử lí,
+          xác minh thông tin và xác minh hiện trường (nếu có).
+        </li>
+        <li>Giám định viên và chủ xe/khách thuê cùng mang xe ra Garage để
+          giám định thiệt hại và ra <span>Báo giá sửa chữa</span>
+        </li>
+        <li>
+          Trung tâm bồi thường của nhà bảo hiểm ra <span>Biên bản giám định</span> thiệt hại.
+        </li>
+        <li>
+          Garage tiến hành sửa chữa theo báo giá.
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="form-popup" id="formSearch" style="width: 40%">
+  <div style="border-bottom: 1px solid black">
+    <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+    <h4 style="text-align: center; padding-bottom: 10px; border-bottom: 1px solid gray">Địa điểm</h4>
+    <div class="search-container">
+      <div style="margin: 0 5px">
+        <i class="fas fa-map-marker-alt"></i>
+      </div>
+      <div style="margin-right: 5px">
+        <input class="search-input" type="text" placeholder="Hà Nội">
+      </div>
+      <i class="fas fa-times clear-input" onclick="clearInput()"></i>
+    </div>
+    <div class="box-item" onclick="getLocation()">
+      <div class="wrap-svg">
+        <i class="fas fa-map-marker-alt"></i>
+      </div>
+      <div class="box-item-text">
+        <p class="main">Vị trí hiện tại</p>
+        <div id="location-output"></div>
+      </div>
+    </div>
+  </div>
+  <div style="border-bottom: 1px solid black">
+    <p style="font-size: 14px; color: gray; margin:10px">Giao xe tại sân bay</p>
+    <div class="wrap-box airport">
+      <div class="box-items">
+        <div class="wrap-svg">
+          <i class="fas fa-plane"></i> Tân Sơn Nhất
+        </div>
+      </div>
+      <div class="box-items">
+        <div class="wrap-svg">
+          <i class="fas fa-plane"></i> Nội Bài
+        </div>
+      </div>
+      <div class="box-items">
+        <div class="wrap-svg">
+          <i class="fas fa-plane"></i> Đà Nẵng
+        </div>
+      </div>
+      <div class="box-items">
+        <div class="wrap-svg">
+          <i class="fas fa-plane"></i> Cam Ranh
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p style="font-size: 14px; color: gray; margin:10px">Tìm kiếm gần đây</p>
+  </div>
+</div>
+<footer>
+  <div id="footer"></div>
+</footer>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="/static/Home.js"></script>
+</body>
+</html>
