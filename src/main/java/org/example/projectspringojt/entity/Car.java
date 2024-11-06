@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.projectspringojt.enums.CarStatus;
 
 @Entity
 @Data
@@ -76,7 +77,7 @@ public class Car {
   private String termOfUse;
 
   @Enumerated(value = EnumType.STRING)
-  private Status Status;
+  private CarStatus status;
 
   @Column(name = "VehicleRegistration", length = 50)
   private String vehicleRegistration;

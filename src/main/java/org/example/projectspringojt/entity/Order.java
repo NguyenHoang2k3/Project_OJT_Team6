@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.projectspringojt.enums.OrderStatus;
 
 @Entity
 @Data
@@ -36,8 +37,8 @@ public class Order {
 
   @Column(name = "Order_EndDate", nullable = false)
   private LocalDate OrderEndDate;
-  @Enumerated(value = EnumType.ORDINAL)
-  private Status Status;
+  @Enumerated(value = EnumType.STRING)
+  private OrderStatus status;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "User_ID")
