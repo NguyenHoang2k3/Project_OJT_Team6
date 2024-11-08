@@ -2,6 +2,8 @@ package org.example.projectspringojt.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,13 +27,13 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "User_ID")
-  private Integer id;
+  private Integer userID;
 
   @Column(name = "User_Name", length = 255, nullable = false)
-  private String customerName;
+  private String userName;
 
   @Column(name = "DateOfBirth", nullable = false)
-  private LocalDate Dob;
+  private String Dob;
 
   @Column(name = "National_ID", nullable = false)
   private Integer nationalId;
@@ -55,7 +57,10 @@ public class User {
   private String password;
 
   @Column(name = "ROLE_ID")
-  private Integer ROLE_ID;
+  private Integer roleId;
+
+  @Enumerated(value = EnumType.STRING)
+  private StatusUser status;
 
   @OneToMany(mappedBy = "user")
   private List<Order> orders = new ArrayList<Order>();
